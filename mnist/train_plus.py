@@ -80,6 +80,13 @@ for i in range(20000):
 saver = tf.train.Saver()
 saver.save(sess, "train_plus-result/train_plus", global_step=20000)
 
+out_accuracy = 0.0
+for i in range(1000):
+    batch = mnist.test.next_batch(10)
+    out_accuracy += 0.001 * accuracy.eval(feed_dict={
+        x: batch[0], y_: batch[1], keep_prob: 1.0
+    })
+print(out_accuracy)
 """
 print("test accuracy %g" % accuracy.eval(feed_dict={
     x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
